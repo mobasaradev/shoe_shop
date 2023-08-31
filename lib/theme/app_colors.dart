@@ -6,6 +6,7 @@ class AppColors {
   static const white = Colors.white;
   static const black = Colors.black;
   static const grey = Colors.grey;
+  static const orange = Color(0Xfff87265);
 
   // Background color
   static const lightPrimaryBg = Color(0xFFf8f9fa);
@@ -15,7 +16,7 @@ class AppColors {
   // Button colors
   static const primaryButton = Color(0xFF0b6efe);
   static const secondaryButton = Color(0xFF5b9ee1);
-  static const disableButton = Color(0xFFb6d3ff); 
+  static const disableButton = Color(0xFFb6d3ff);
 
   // Text colors
   static const primaryText = Color(0xFF1a2530);

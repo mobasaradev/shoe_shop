@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_shop/modules/home_screen.dart';
+import 'package:shoe_shop/modules/home/home_screen.dart';
 import 'package:shoe_shop/modules/widgets/custom_scaffold_msg.dart';
 import 'package:shoe_shop/modules/widgets/custom_screen_padding.dart';
 import 'package:shoe_shop/theme/app_colors.dart';
