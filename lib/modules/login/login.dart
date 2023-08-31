@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_shop/modules/home_screen.dart';
+import 'package:shoe_shop/modules/widgets/custom_scaffold_msg.dart';
 import 'package:shoe_shop/modules/widgets/custom_screen_padding.dart';
 import 'package:shoe_shop/theme/app_colors.dart';
 import 'package:shoe_shop/theme/app_text_theme.dart';
 import 'package:shoe_shop/utils/asset_paths.dart';
 
 import '../widgets/curved_paint.dart';
+import '../widgets/custom_icon_design.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +20,38 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool isLoading = false;
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      scaffoldMsg(
+        context,
+        'Processing Data',
+        Colors.green,
+      );
+      // Simulate login process
+      Future.delayed(const Duration(seconds: 1), () {
+        setState(() {
+          isLoading = false;
+        });
+
+        // Navigate to next screen if login is successful
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      });
+    } else {
+      scaffoldMsg(
+        context,
+        'Please enter valid input',
+        Colors.red,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
-                                value.length <= 6) {
+                                value.length <= 5) {
                               return 'Please enter valid Password';
                             }
                             return null;
@@ -87,39 +122,41 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: OutlineInputBorder(),
                           ),
                         ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
+                            onTap: () {
+                              scaffoldMsg(
+                                context,
+                                'You have clicked on Forget password button',
+                                AppColors.primaryButton,
+                              );
+                            },
+                            child: const Text('Forget Password ?'),
+                          ),
+                        ),
                         const SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Processing Data'),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Center(
-                                      child: Text('Please enter valid input'),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
+                            onPressed: isLoading ? null : _login,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryButton,
+                              backgroundColor: isLoading
+                                  ? AppColors.primaryButton
+                                  : AppColors.primaryButton,
                               foregroundColor: AppColors.whiteText,
                               padding: const EdgeInsets.symmetric(vertical: 7),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: Text(
-                              'Submit',
-                              style: AppTextTheme.common.bodyLarge,
-                            ),
+                            child: isLoading
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : Text(
+                                    'Login',
+                                    style: AppTextTheme.common.bodyLarge,
+                                  ),
                           ),
                         ),
                       ],
@@ -167,17 +204,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildImageButton(
+                      buildImageButton(
                         AppColors.grey,
                         AssetPaths.googleIcon,
                       ),
                       const SizedBox(width: 10),
-                      _buildImageButton(
+                      buildImageButton(
                         AppColors.grey,
                         AssetPaths.facebookIcon,
                       ),
                       const SizedBox(width: 10),
-                      _buildImageButton(
+                      buildImageButton(
                         AppColors.grey,
                         AssetPaths.appleIcon,
                       ),
@@ -187,24 +224,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  _buildImageButton(Color backgroundColor, String imageUrl) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        width: 45,
-        height: 45,
-        padding: const EdgeInsets.all(7),
-        decoration: BoxDecoration(
-          color: backgroundColor.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: Center(
-          child: Image.asset(imageUrl),
         ),
       ),
     );
