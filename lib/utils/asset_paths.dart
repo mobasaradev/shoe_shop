@@ -13,5 +13,6 @@ class AssetPaths {
   static const nikeJordan = '$_imagesPath/nike_jordan.png';
   static const nikeAir = '$_imagesPath/nike_air.png';
   static const nikeAirMax = '$_imagesPath/nike_air_max.png';
-  static const nikeOne = '$_imagesPath/nike_one.png';
+  static const profile = '$_imagesPath/profile.jpg';
+  static const splash = '$_imagesPath/splash.jpg';
 }

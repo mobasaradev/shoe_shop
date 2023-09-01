@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_shop/modules/home/home_screen.dart';
+import 'package:shoe_shop/modules/main/main_screen.dart';
 import 'package:shoe_shop/modules/widgets/custom_scaffold_msg.dart';
 import 'package:shoe_shop/modules/widgets/custom_screen_padding.dart';
 import 'package:shoe_shop/theme/app_colors.dart';
@@ -32,16 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
         'Processing Data',
         Colors.green,
       );
-      // Simulate login process
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           isLoading = false;
         });
-
-        // Navigate to next screen if login is successful
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const MainScreen()),
         );
       });
     } else {
@@ -112,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length <= 5) {
-                              return 'Please enter valid Password';
+                              return 'Please enter more then 5 digit';
                             }
                             return null;
                           },
