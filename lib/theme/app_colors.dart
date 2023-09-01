@@ -9,7 +9,7 @@ class AppColors {
   static const orange = Color(0Xfff87265);
 
   // Background color
-  static const lightPrimaryBg = Color(0xFFf8f9fa);
+  static const lightPrimaryBg = Color(0xFFEBEDEF);
   static const darkPrimaryBg = Color(0xFF1a2530);
   static const painter = Color(0xFFb3e0ff);
 

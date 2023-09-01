@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_shop/modules/home/tab_bar/tab_bar.dart';
 import 'package:shoe_shop/modules/widgets/custom_appbar.dart';
 import 'package:shoe_shop/modules/widgets/custom_screen_padding.dart';
 
 import '../../theme/app_colors.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.view_module_rounded,
                 title: 'Mondolibug, Sylhet',
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 30),
               Container(
                 height: 50,
                 decoration: BoxDecoration(
@@ -47,7 +53,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 30),
+              const CustomTabBarView(),
             ],
           ),
         ),
