@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoe_shop/modules/home/home_screen.dart';
 import 'package:shoe_shop/modules/login/login.dart';
 import 'package:shoe_shop/modules/profile/widgets/custom_list_tile.dart';
@@ -78,12 +79,17 @@ class ProfileScreen extends StatelessWidget {
                 height: 60,
               ),
               CustomListTile(
-                onTap: () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
-                ),
+                onTap: () async {
+                  SharedPreferences sharedPre =
+                      await SharedPreferences.getInstance();
+                  sharedPre.clear();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                },
                 icon: Icons.logout,
                 title: 'Sign Out',
               ),
