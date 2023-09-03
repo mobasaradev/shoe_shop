@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoe_shop/modules/main/main_screen.dart';
+import 'package:shoe_shop/modules/splash_screen.dart';
 import 'package:shoe_shop/modules/widgets/custom_scaffold_msg.dart';
 import 'package:shoe_shop/modules/widgets/custom_screen_padding.dart';
 import 'package:shoe_shop/theme/app_colors.dart';
@@ -22,11 +24,29 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool isLoading = false;
 
-  void _login() {
+  @override
+  void initState() {
+    super.initState();
+    _initSharedPref();
+  }
+
+  void _initSharedPref() async {
+    SharedPreferences sharedPre = await SharedPreferences.getInstance();
+    _emailController.text = sharedPre.getString('email') ?? '';
+    _passwordController.text = sharedPre.getString('password') ?? '';
+    setState(() {});
+  }
+
+  void _login() async {
+    SharedPreferences sharedPre = await SharedPreferences.getInstance();
     if (_formKey.currentState!.validate()) {
+      await sharedPre.setString('email', _emailController.text);
+      await sharedPre.setString('password', _passwordController.text);
+      sharedPre.setBool(SplashScreenState.keyLogin, true);
       setState(() {
         isLoading = true;
       });
+
       scaffoldMsg(
         context,
         'Processing Data',
